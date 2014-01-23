@@ -1,0 +1,16 @@
+﻿<use namespace="Nancy.Bandit.IntegrationTest.ViewModels"/>
+﻿<use master="base" />
+<viewdata model="Nancy.Bandit.IntegrationTest.ViewModels.WeightedRewardTest.WeightedRewardTestViewModel" />
+
+<content name="title">Hello</content>
+
+<content name="body">
+    
+  <h1>Give me your money!</h1>
+
+  <form class="form-horizontal" role="form" action="/" method="post">
+    <input type="hidden" name="money" value="${Model.Money}" />
+    <button type="submit" class="btn btn-default">${ string.Format("${0}", Model.Money) }</button>
+  </form>
+  
+</content>
