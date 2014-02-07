@@ -7,15 +7,30 @@ namespace Nancy.Bandit
 
     public class Hypothesis
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public ISelectionAlgorithm Selector { get; set; }
-        public IDictionary<string, Experiment> Experiments { get; set; }
+        public Name Name { get; protected set; }
+        public DescriptiveText Description { get; set; }
+        private ISelectionAlgorithm selector;
+        private IDictionary<string, Experiment> experiments;
+
+        public Hypothesis(Name name, DescriptiveText description, ISelectionAlgorithm selector, IDictionary<string, Experiment> experiments)
+        {
+            Guard.NotNull(() => name, name);
+            Guard.NotNull(() => description, description);
+            Guard.NotNull(() => selector, selector);
+            Guard.NotNull(() => experiments, experiments);
+
+            this.Name = name;
+            this.Description = description;
+            this.selector = selector;
+            this.experiments = experiments;
+        }
 
         public KeyValuePair<string, string> Choose(string key)
         {
+            Guard.NotNullOrEmpty(() => key, key);
+
             Experiment experiment;
-            if(Experiments.TryGetValue(key, out experiment))
+            if(experiments.TryGetValue(key, out experiment))
             {
                 return new KeyValuePair<string, string>(experiment.Name, experiment.Value);
             }
@@ -25,20 +40,21 @@ namespace Nancy.Bandit
 
         public KeyValuePair<string, string> Choose()
         {
-            Experiment experiment = Selector.Choose(Experiments.Values.ToList());
-            experiment.Trials++;
+            Experiment experiment = selector.Choose(experiments.Values.ToList());
+            experiment.Trial();
 
             return new KeyValuePair<string, string>(experiment.Name, experiment.Value);
         }
 
         public void Convert(string key, decimal weight)
         {
+            Guard.NotNullOrEmpty(() => key, key);
+
             Experiment experiment;
-            if (Experiments.TryGetValue(key, out experiment))
+            if (experiments.TryGetValue(key, out experiment))
             {
-                experiment.Conversions += weight;
+                experiment.Convert(weight);
             }
         }
-
     }
 }

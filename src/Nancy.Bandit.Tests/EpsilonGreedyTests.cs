@@ -14,29 +14,9 @@ namespace Nancy.Bandit.Tests
 
             List<Experiment> experiments = new List<Experiment>();
 
-            experiments.Add(new Experiment()
-            {
-                Name = "Red",
-                Value = "RedExperiment",
-                Trials = 1,
-                Conversions = 1
-            });
-
-            experiments.Add(new Experiment()
-            {
-                Name = "Green",
-                Value = "GreenExperiment",
-                Trials = 1,
-                Conversions = 500
-            });
-
-            experiments.Add(new Experiment()
-            {
-                Name = "Blue",
-                Value = "BlueExperiment",
-                Trials = 1,
-                Conversions = 1
-            });
+            experiments.Add(new Experiment(new Name("Red"), new DescriptiveText("RedExperiment"), 1, 1));
+            experiments.Add(new Experiment(new Name("Green"), new DescriptiveText("GreenExperiment"), 500, 1));
+            experiments.Add(new Experiment(new Name("Blue"), new DescriptiveText("BlueExperiment"), 1, 1));
 
             Dictionary<string, int> counter = new Dictionary<string,int>();
             counter.Add("Red", 0);

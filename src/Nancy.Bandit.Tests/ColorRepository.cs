@@ -11,41 +11,16 @@ namespace Nancy.Bandit.Tests
 
         public ColorRepository(ISelectionAlgorithm selector)
         {
-            Hypothesis colorHypothesis = new Hypothesis()
-            {
-                Name = "ColorTest",
-                Description = "One of theses colors is the best",
-                Experiments = new Dictionary<string, Experiment>(),
-                Selector = selector
-            };
+            Dictionary<string, Experiment> experiments = new Dictionary<string, Experiment>();
+            experiments.Add("Green", new Experiment(new Name("Green"), new DescriptiveText("GreenExperiment")));
+            experiments.Add("Blue", new Experiment(new Name("Blue"), new DescriptiveText("BlueExperiment")));
+            experiments.Add("Red", new Experiment(new Name("Red"), new DescriptiveText("RedExperiment")));
 
-            Experiment redExperiment = new Experiment()
-            {
-                Name = "Red",
-                Value = "RedExperiment",
-                Conversions = 0,
-                Trials = 0
-            };
-
-            Experiment greenExperiment = new Experiment()
-            {
-                Name = "Green",
-                Value = "GreenExperiment",
-                Conversions = 0,
-                Trials = 0
-            };
-
-            Experiment blueExperiment = new Experiment()
-            {
-                Name = "Blue",
-                Value = "BlueExperiment",
-                Conversions = 0,
-                Trials = 0
-            };
-
-            colorHypothesis.Experiments.Add(greenExperiment.Name, greenExperiment);
-            colorHypothesis.Experiments.Add(blueExperiment.Name, blueExperiment);
-            colorHypothesis.Experiments.Add(redExperiment.Name, redExperiment);
+            Hypothesis colorHypothesis = new Hypothesis(
+                    new Name("ColorTest"),
+                    new DescriptiveText("One of theses colors is the best"),
+                    selector,
+                    experiments);
             
             this.hypotheses = new Dictionary<string, Hypothesis>();
             this.hypotheses.Add(colorHypothesis.Name, colorHypothesis);

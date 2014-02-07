@@ -11,38 +11,20 @@ namespace Nancy.Bandit.IntegrationTest.Infrastructure
 
         public MemoryRepository()
         {
-            Hypothesis colorHypothesis = new Hypothesis()
-            {
-                Name = "OptimalBegging",
-                Description = "There is an optimal amount of money to ask for.",
-                Experiments = new Dictionary<string, Experiment>(),
-                Selector = new EpsilonGreedy()
-            };
+            Dictionary<string, Experiment> experiments = new Dictionary<string, Experiment>();
+            experiments.Add("Small", new Experiment(new Name("Small"), new DescriptiveText("10")));
+            experiments.Add("Medium", new Experiment(new Name("Medium"), new DescriptiveText("25")));
+            experiments.Add("Large", new Experiment(new Name("Large"), new DescriptiveText("150")));
 
-            Experiment redExperiment = new Experiment()
-            {
-                Name = "Small",
-                Value = "10"
-            };
-
-            Experiment greenExperiment = new Experiment()
-            {
-                Name = "Medium",
-                Value = "25"
-            };
-
-            Experiment blueExperiment = new Experiment()
-            {
-                Name = "Large",
-                Value = "150"
-            };
-
-            colorHypothesis.Experiments.Add(greenExperiment.Name, greenExperiment);
-            colorHypothesis.Experiments.Add(blueExperiment.Name, blueExperiment);
-            colorHypothesis.Experiments.Add(redExperiment.Name, redExperiment);
+            Hypothesis moneyHypothesis = new Hypothesis(
+                new Name("OptimalBegging"),
+                new DescriptiveText("There is an optimal amount of money to ask for."),
+                new EpsilonGreedy(),
+                experiments
+            );         
 
             this.hypotheses = new Dictionary<string, Hypothesis>();
-            this.hypotheses.Add(colorHypothesis.Name, colorHypothesis);
+            this.hypotheses.Add(moneyHypothesis.Name, moneyHypothesis);
         }
 
         public Hypothesis SelectHypothesis(string key)
