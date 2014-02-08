@@ -86,13 +86,26 @@ namespace Nancy.Bandit.Tests
         }
 
         [Fact]
-        public void Bandido_WithConversion_UpdatesExperiment()
+        public void Bandido_WithWeightedConversion_UpdatesExperiment()
         {
             Bandido bandido = new Bandido(new ColorRepository(new MaxSelector()));
             bandido.Session = new RepeaterSession();
 
             bandido.Session.SetActiveExperiment("ColorTest", "Blue");
             bandido.Convert("ColorTest", 500);
+            string choice = bandido.Choose("ColorTest");
+
+            Assert.Equal("BlueExperiment", choice);
+        }
+
+        [Fact]
+        public void Bandido_WithConversion_UpdatesExperiment()
+        {
+            Bandido bandido = new Bandido(new ColorRepository(new MaxSelector()));
+            bandido.Session = new RepeaterSession();
+
+            bandido.Session.SetActiveExperiment("ColorTest", "Blue");
+            bandido.Convert("ColorTest");
             string choice = bandido.Choose("ColorTest");
 
             Assert.Equal("BlueExperiment", choice);

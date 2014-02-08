@@ -18,6 +18,7 @@ namespace Nancy.Bandit
             Guard.NotNull(() => description, description);
             Guard.NotNull(() => selector, selector);
             Guard.NotNull(() => experiments, experiments);
+            Guard.IsValid(() => experiments, experiments, x => x.Keys.Count > 0, "Experiments must contain at least one experiment.");
 
             this.Name = name;
             this.Description = description;

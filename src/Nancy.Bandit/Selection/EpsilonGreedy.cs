@@ -22,6 +22,9 @@ namespace Nancy.Bandit.Selection
 
         public Experiment Choose(IList<Experiment> experiments)
         {
+            Guard.NotNull(() => experiments, experiments);
+            Guard.IsValid(() => experiments, experiments, x => x.Count > 0, "Experiments must contain at least one experiment.");
+
             return random.NextDouble() < epsilon ? Exploration(experiments) : Exploitation(experiments);
         }
 

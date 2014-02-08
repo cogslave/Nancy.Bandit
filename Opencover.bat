@@ -3,7 +3,7 @@ REM This allows OpenCover to gather code coverage results
 .\packages\OpenCover.4.5.2316\OpenCover.Console.exe^
  -target:".\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe"^
  -targetargs:".\src\Nancy.Bandit.Tests\bin\Debug\Nancy.Bandit.Tests.dll /noshadow"^
- -filter:"+[*]* -[Nancy.Bandit.Tests]*"^
+ -filter:"+[*]* -[*]Guard -[Nancy.Bandit.Tests]*"^
  -register:user^
  -output:.\report\output.xml
 
