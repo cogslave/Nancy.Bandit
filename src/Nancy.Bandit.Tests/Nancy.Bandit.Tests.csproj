@@ -46,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BandidoTests.cs" />
+    <Compile Include="DescriptiveTextTests.cs" />
     <Compile Include="EpsilonGreedyTests.cs" />
+    <Compile Include="NameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ColorRepository.cs" />
   </ItemGroup>

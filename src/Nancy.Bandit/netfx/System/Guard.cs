@@ -67,7 +67,7 @@ static class Guard
 
     /// <summary>
     /// Ensures the given string <paramref name="value"/> is valid according 
-    /// to the <paramref name="validate"/> function. Throws <see cref="ArgumentNullException"/> 
+    /// to the <paramref name="validate"/> function. Throws <see cref="ArgumentException"/> 
     /// otherwise.
     /// </summary>
     /// <exception cref="System.ArgumentException">The <paramref name="value"/> is not valid according 
